@@ -19,22 +19,49 @@
 <svelte:window bind:scrollY={yPos} />
 
 {#if visible}
-    <div bind:offsetHeight={navBarHeight} id="navbar" in:slide out:slide>
-        <li>
+    <ul bind:offsetHeight={navBarHeight} id="navbar" in:slide out:slide>
+        <li class="active">
             <a href="#">Home</a>
+        </li>
+        <li>
             <a href="#">Resumé</a>
+        </li>
+        <li>
             <a href="#">Blog</a>
         </li>
-    </div>
+    </ul>
 {/if}
 
 <style>
 
     #navbar {
+        list-style-type: none;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
         width: 100%;
-        height: 50px;
         background-color: orange;
         position: fixed;
+    }
+
+    #navbar > li {
+        float: left;
+    }
+
+    #navbar > li > a {
+        text-decoration: none;
+        padding: 15px;
+        text-align: center;
+        display: inline-block;
+        color: white;
+    }
+
+    #navbar > li:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .active {
+        background-color: rgba(0, 0, 0, 0.3);
     }
 
 </style>

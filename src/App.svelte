@@ -1,14 +1,18 @@
 <script>
     import Navbar from "./Navbar.svelte";
+    import HeroText from './HeroText.svelte';
 
-	export let name;
+    export let name;
 </script>
 
-<header>
-    <Navbar />
-</header>
-
 <main>
+    <div id="front-panel">
+        <div class="container">
+            <Navbar />
+            <HeroText />
+        </div>
+
+    </div>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
@@ -17,9 +21,19 @@
 
 <style>
 
+    #front-panel {
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(circle, rgba(20,25,42,1) 0%, rgba(17,21,35,1) 63%, rgba(11,14,24,1) 100%);
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
 	main {
 		text-align: center;
-		padding: 1em;
         max-width: 120rem;
 	}
 

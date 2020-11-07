@@ -40,15 +40,15 @@
         }
 
         autoTranslateInterval = setInterval(() => {
-            changeIndex(1);
+            setIndex(currentWordIndex + 1);
         }, autoTransitionDelay);
     }
 
-    function changeIndex(delta) {
+    function setIndex(nextIndex) {
+        if(currentWordIndex === nextIndex) return;
+
         // If there is a transition occuring, we don't want to be able to update the index.
         if(isTransitioning) return;
-
-        let nextIndex = currentWordIndex + delta;
 
         if(nextIndex > words.length - 1) {
             nextIndex = 0;
@@ -69,7 +69,7 @@
 
 <h2>Hey there, I'm a</h2>
 <div class="hero-text">
-    <SmallArrow buttonClicked={() => changeIndex(-1)} flipped={false} />
+    <SmallArrow buttonClicked={() => setIndex(currentWordIndex-1)} flipped={false} />
 
     {#each words as { word, color }, i}
         {#if currentWordIndex === i && !isTransitioning}
@@ -79,25 +79,32 @@
         {/if}
     {/each}
 
-    <SmallArrow buttonClicked={() => changeIndex(1)} flipped={true} />
+    <SmallArrow buttonClicked={() => setIndex(currentWordIndex+1)} flipped={true} />
+</div>
 
+<div class="dots">
     {#each words as word, i}
-        <div class="dot"></div>
-        <!--{#if currentWordIndex === i && !isTransitioning}-->
-        <!--    <h1 transition:fly="{{ y: 100, duration: transitionTime }}" style="color: {color};">-->
-        <!--        {word}-->
-        <!--    </h1>-->
-        <!--{/if}-->
+        <div on:click={() => setIndex(i)} class:active={i === currentWordIndex} class="dot"></div>
     {/each}
 </div>
 
 <style>
+    .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: -20px;
+    }
+
     .dot {
         width: 10px;
-        background-color: lightgray;
+        background-color: #707070;
         height: 10px;
         border-radius: 5px;
         margin: 5px;
+    }
+
+    .active {
+        background-color: rgba(255, 255, 255, 0.55);
     }
 
     h1, h2 {
